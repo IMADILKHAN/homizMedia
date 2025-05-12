@@ -6,18 +6,18 @@
 }
 
 :root {
-    --primary-color: #a67c52; /* Darker rose gold accent */
-    --secondary-color: #181818; /* Deep black */
-    --accent-color: #8c6846; /* Even deeper rose gold for large areas */
-    --accent-hover: #bfa181; /* Lighter rose gold for hover */
-    --text-color: #ecebe6; /* Eggshell/off-white */
-    --light-text: #b0b0b0; /* Light grey for secondary text */
-    --background: #181818; /* Main background */
-    --light-background: #222; /* Slightly lighter black for cards */
-    --card-background: #222; /* Card background */
-    --gradient-start: #181818;
-    --gradient-end: #222;
-    --border-color: #444; /* For subtle borders */
+    --primary-color: #c9a66b; /* Brighter, more vibrant rose gold */
+    --secondary-color: #0a0a0a; /* Deeper, richer black */
+    --accent-color: #d4b483; /* Warmer rose gold for large areas */
+    --accent-hover: #e5c9a3; /* Softer, more elegant hover state */
+    --text-color: #f5f5f0; /* Brighter eggshell */
+    --light-text: #d1d1d1; /* Warmer light grey */
+    --background: #0a0a0a; /* Richer black background */
+    --light-background: #1a1a1a; /* Slightly lighter rich black */
+    --card-background: #1a1a1a; /* Matching card background */
+    --gradient-start: #0a0a0a;
+    --gradient-end: #1a1a1a;
+    --border-color: #333; /* Darker border color */
     --transition: all 0.3s ease;
 }
 
@@ -68,6 +68,7 @@ header {
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(201, 166, 107, 0.3);
 }
 
 .hamburger {
@@ -153,7 +154,7 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientFlow 8s ease infinite;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 1px 0 #fff2;
+    text-shadow: 0 2px 24px rgba(201, 166, 107, 0.3), 0 1px 0 #fff2;
     transition: text-shadow 0.3s, filter 0.3s;
 }
 
@@ -327,21 +328,20 @@ header {
 .cta-button {
     display: inline-block;
     padding: 1rem 2rem;
-    background: transparent;
-    color: var(--primary-color);
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    color: var(--secondary-color);
     text-decoration: none;
     border-radius: 5px;
     font-weight: 600;
     transition: var(--transition);
-    border: 2px solid var(--primary-color);
+    border: none;
+    box-shadow: 0 4px 15px rgba(201, 166, 107, 0.2);
 }
 
 .cta-button:hover {
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    border-color: var(--accent-hover);
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(201, 166, 107, 0.3);
 }
 
 .secondary-button {
@@ -395,12 +395,12 @@ header {
 }
 
 .service-card {
-    background: var(--card-background);
-    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, var(--card-background), var(--light-background));
+    border: 1px solid rgba(201, 166, 107, 0.1);
     backdrop-filter: blur(10px);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -413,8 +413,8 @@ header {
 
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-    border-color: var(--accent-color);
+    box-shadow: 0 8px 24px rgba(201, 166, 107, 0.15);
+    border-color: var(--primary-color);
 }
 
 .service-card h3 {
@@ -449,13 +449,13 @@ header {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, var(--primary-color) 0%, transparent 100%);
-    opacity: 0;
+    opacity: 0.1;
     transition: opacity 0.3s ease;
     z-index: -1;
 }
 
 .service-card:hover::before {
-    opacity: 1;
+    opacity: 0.2;
 }
 
 /* Why Choose Us Section */
@@ -487,12 +487,12 @@ header {
 }
 
 .feature {
-    background: var(--card-background);
-    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, var(--card-background), var(--light-background));
+    border: 1px solid rgba(201, 166, 107, 0.1);
     backdrop-filter: blur(10px);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -509,8 +509,8 @@ header {
 
 .feature:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-    border-color: var(--accent-color);
+    box-shadow: 0 8px 24px rgba(201, 166, 107, 0.15);
+    border-color: var(--primary-color);
 }
 
 .feature i {
@@ -532,13 +532,13 @@ header {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, var(--primary-color) 0%, transparent 100%);
-    opacity: 0;
+    opacity: 0.1;
     transition: opacity 0.3s ease;
     z-index: -1;
 }
 
 .feature:hover::before {
-    opacity: 1;
+    opacity: 0.2;
 }
 
 .feature h3 {
@@ -573,6 +573,7 @@ footer::before {
     height: 100%;
     background: linear-gradient(135deg, var(--primary-color) 0%, transparent 100%);
     pointer-events: none;
+    opacity: 0.05;
 }
 
 .footer-content {
@@ -668,13 +669,17 @@ footer::before {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(224, 201, 166, 0.08);
+    background: linear-gradient(145deg, var(--light-background), var(--card-background));
+    border: 1px solid rgba(201, 166, 107, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .social-links a:hover {
     color: var(--accent-hover);
     transform: translateY(-3px);
-    background: rgba(224, 201, 166, 0.18);
+    background: linear-gradient(145deg, var(--card-background), var(--light-background));
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 20px rgba(201, 166, 107, 0.2);
 }
 
 .footer-bottom {
@@ -1300,7 +1305,7 @@ footer::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(24, 24, 24, 0.92); /* deep black overlay */
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1576,14 +1581,14 @@ footer::before {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(224, 201, 166, 0.12);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(201, 166, 107, 0.15);
 }
 
 .submit-btn {
     width: 100%;
     padding: 1rem;
-    background: var(--accent-color);
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
     color: var(--secondary-color);
     border: none;
     border-radius: 5px;
@@ -1591,11 +1596,12 @@ footer::before {
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(201, 166, 107, 0.2);
 }
 
 .submit-btn:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+    box-shadow: 0 6px 20px rgba(201, 166, 107, 0.3);
 }
 
 /* Map Section */
