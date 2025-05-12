@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="loading-animation">
+        <div class="loader">
+            <svg width="50" height="50" viewBox="0 0 50 50">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="var(--primary-color)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="125.6">
+                    <animate attributeName="stroke-dashoffset" from="125.6" to="0" dur="1.5s" fill="freeze" />
+                </circle>
+            </svg>
+        </div>
+    </div>
     <!-- Header Section -->
     <header>
         <nav class="navbar">
@@ -31,7 +40,11 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-text-container"></div>
+        <div class="hero-content">
+            <h1 id="animated-hero-title"></h1>
+            <p id="animated-hero-subtitle"></p>
+            <a href="contact.html" class="cta-button">Get Started</a>
+        </div>
     </section>
 
     <!-- Services Preview Section -->

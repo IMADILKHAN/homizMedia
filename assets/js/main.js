@@ -229,158 +229,134 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.style.setProperty('--mouse-y', `${y}%`);
         });
     }
+
+    // Animate hero text
+    const heroTitle = document.getElementById('animated-hero-title');
+    const heroSubtitle = document.getElementById('animated-hero-subtitle');
+    if (heroTitle && heroSubtitle) {
+        typeWriter(heroTitle, 'Transform Your Digital Presence', 40, () => {
+            setTimeout(() => {
+                typeWriter(heroSubtitle, 'We help businesses grow through innovative digital marketing solutions.', 18);
+            }, 400);
+        });
+    }
 });
 
 // Custom Cursor
 const cursor = document.createElement('div');
+const cursorDot = document.createElement('div');
 cursor.className = 'custom-cursor';
+cursorDot.className = 'cursor-dot';
 document.body.appendChild(cursor);
+document.body.appendChild(cursorDot);
 
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+    cursorDot.style.transform = `translate(${e.clientX - 2}px, ${e.clientY - 2}px)`;
 });
 
 // Interactive Elements
-document.querySelectorAll('.interactive-element').forEach(element => {
-    element.addEventListener('mouseenter', () => cursor.classList.add('active'));
-    element.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+const interactiveElements = document.querySelectorAll('a, button, .hover-effect');
+interactiveElements.forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+    });
+    element.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+    });
 });
 
-// Hero Section Text Transitions
-const heroTexts = [
-    {
-        title: "Transform Your Digital Presence",
-        subtitle: "We help businesses grow through innovative digital marketing solutions"
-    },
-    {
-        title: "Creative Digital Solutions",
-        subtitle: "Crafting unique strategies for your brand's success"
-    },
-    {
-        title: "Data-Driven Marketing",
-        subtitle: "Making informed decisions with advanced analytics"
-    },
-    {
-        title: "Social Media Excellence",
-        subtitle: "Building meaningful connections with your audience"
-    }
-];
+// Page Transitions
+const pageTransition = document.createElement('div');
+pageTransition.className = 'page-transition';
+document.body.appendChild(pageTransition);
 
-let currentTextIndex = 0;
-const heroSection = document.querySelector('.hero');
-const heroTextContainer = document.querySelector('.hero-text-container');
+document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (link.getAttribute('href').startsWith('#')) return;
+        e.preventDefault();
+        pageTransition.classList.add('active');
+        setTimeout(() => {
+            window.location = link.href;
+        }, 600);
+    });
+});
 
-// Create floating elements
-const createFloatingElements = () => {
-    const heroSection = document.querySelector('.hero');
-    if (!heroSection) return;
-
-    // Remove any existing floating elements
-    const existingElements = heroSection.querySelector('.floating-elements');
-    if (existingElements) {
-        existingElements.remove();
-    }
-
-    const container = document.createElement('div');
-    container.className = 'floating-elements';
-    
-    for (let i = 0; i < 5; i++) {
-        const element = document.createElement('div');
-        element.className = 'floating-element';
-        element.style.width = `${Math.random() * 100 + 50}px`;
-        element.style.height = element.style.width;
-        element.style.left = `${Math.random() * 100}%`;
-        element.style.top = `${Math.random() * 100}%`;
-        element.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(element);
-    }
-    
-    heroSection.appendChild(container);
+// Scroll Animations
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
 };
 
-// Update hero text
-const updateHeroText = () => {
-    const heroTextContainer = document.querySelector('.hero-text-container');
-    if (!heroTextContainer) return;
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
 
-    const text = heroTexts[currentTextIndex];
-    const textElement = document.createElement('div');
-    textElement.className = 'hero-text';
-    textElement.innerHTML = `
-        <h1>${text.title}</h1>
-        <p>${text.subtitle}</p>
-        <a href="contact.html" class="cta-button">Get Started</a>
-    `;
-    
-    // Remove any existing text elements
-    const existingTexts = heroTextContainer.querySelectorAll('.hero-text');
-    existingTexts.forEach(text => text.remove());
-    
-    heroTextContainer.appendChild(textElement);
-    // Force a reflow
-    textElement.offsetHeight;
-    textElement.classList.add('active');
-    
-    currentTextIndex = (currentTextIndex + 1) % heroTexts.length;
-};
-
-// Scroll Progress
-const scrollProgress = document.createElement('div');
-scrollProgress.className = 'scroll-progress';
-document.body.appendChild(scrollProgress);
-
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrolled / maxHeight;
-    scrollProgress.style.transform = `scaleX(${progress})`;
-    
-    // Update hero background based on scroll
-    const opacity = Math.min(1, scrolled / 500);
-    heroSection.style.background = `linear-gradient(
-        ${opacity * 45}deg,
-        var(--gradient-start),
-        var(--gradient-end)
-    )`;
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
 });
 
-// Mouse move effect on hero
-document.addEventListener('mousemove', (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    heroSection.style.setProperty('--mouse-x', `${x}%`);
-    heroSection.style.setProperty('--mouse-y', `${y}%`);
+// Text Reveal Animation
+document.querySelectorAll('.text-reveal').forEach(element => {
+    const text = element.textContent;
+    element.textContent = '';
+    const span = document.createElement('span');
+    span.textContent = text;
+    element.appendChild(span);
+    observer.observe(element);
 });
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        createFloatingElements();
-        updateHeroText();
-        
-        // Add mouse move effect to hero section
-        heroSection.addEventListener('mousemove', (e) => {
-            const rect = heroSection.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            heroSection.style.setProperty('--mouse-x', `${x}%`);
-            heroSection.style.setProperty('--mouse-y', `${y}%`);
-        });
+// Parallax Effect
+document.addEventListener('scroll', () => {
+    document.querySelectorAll('.parallax').forEach(element => {
+        const speed = element.dataset.speed || 0.5;
+        const yPos = -(window.pageYOffset * speed);
+        element.style.setProperty('--parallax-offset', `${yPos}px`);
+    });
+});
 
-        // Change text every 5 seconds
-        setInterval(() => {
-            const currentText = document.querySelector('.hero-text.active');
-            if (currentText) {
-                currentText.classList.remove('active');
-                setTimeout(() => {
-                    currentText.remove();
-                    updateHeroText();
-                }, 500);
-            }
-        }, 5000);
+// Loading Animation
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loading-animation');
+    if (loader) {
+        loader.classList.add('fade-out');
+        setTimeout(() => {
+            loader.remove();
+        }, 500);
     }
 });
+
+// Smooth Scroll for Anchor Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Animated Hero Text (Typewriter Effect)
+function typeWriter(element, text, speed = 40, callback) {
+    let i = 0;
+    function typing() {
+        if (i <= text.length) {
+            element.innerHTML = text.substring(0, i) + '<span style="opacity:0.3;">|</span>';
+            i++;
+            setTimeout(typing, speed);
+        } else {
+            element.innerHTML = text; // Remove cursor
+            if (callback) callback();
+        }
+    }
+    typing();
+}
