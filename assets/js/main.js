@@ -240,6 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 400);
         });
     }
+
+    // Marquee seamless loop duplication
+    const marqueeTrack = document.querySelector('.marquee-track');
+    if (marqueeTrack) {
+        marqueeTrack.innerHTML += marqueeTrack.innerHTML;
+    }
 });
 
 // Custom Cursor
