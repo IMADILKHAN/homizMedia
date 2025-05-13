@@ -26,6 +26,13 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background);
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+}
+
+/* Hide scrollbars for the whole page but keep scrolling */
+body::-webkit-scrollbar {
+    display: none;
 }
 
 /* Header and Navigation */
@@ -2027,12 +2034,15 @@ section.visible {
 /* Marquee Gallery Styles */
 .marquee-gallery {
     width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
     background: var(--background);
     padding: 3rem 0;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 2.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .marquee-track {
@@ -2087,4 +2097,32 @@ section.visible {
     .marquee-track {
         gap: 1.5rem;
     }
+}
+
+/* Hide scrollbars for marquee-gallery only (if needed) */
+.marquee-gallery::-webkit-scrollbar {
+    display: none;
+}
+.marquee-gallery {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html, body {
+    /* Allow scrolling, but hide scrollbars */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+.marquee-gallery {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.marquee-gallery::-webkit-scrollbar {
+    display: none;
 }
